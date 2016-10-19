@@ -1,5 +1,4 @@
 // Pull in dependencies
-const kraken = require('./kraken'); // kraken http client
 const express = require('express'); // import the node framework express
 const app = express(); // create an instance of express
 const port = 8080; // store the port number we'd like to use

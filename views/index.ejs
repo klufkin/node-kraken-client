@@ -9,7 +9,8 @@
     <meta name="author" content="">
     <title>Title</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="/public/style.css">
+
 </head>
 
 <body>
@@ -17,9 +18,68 @@
         <h1>Kraken + node ?</h1>
     </header>
     <main>
-        <p>Making a simple node client to interact with the Kraken API</p>
+        <h3>Making a simple node client to interact with the Kraken API</h3>
+        <button id="getTicker" type="button" name="ticker-info">Get Ticker Info</button>
+        <p style="font-size: 12px;line-height: 1;"> pair name <br> a = ask array(price, whole lot volume, lot volume), <br> b = bid array(price, whole lot volume, lot volume),<br> c = last trade closed array(price, lot volume),<br> v = volume array(today, last 24 hours),<br> p = volume weighted
+            average price array(today, last 24 hours),<br> t = number of trades array(today, last 24 hours),<br> l = low array(today, last 24 hours),<br> h = high array(today, last 24 hours),<br> o = today's opening price</p>
+
+
+        <p>asking(selling) price:
+            <span id="askingPrice"> <%= data.XETHZUSD.a[0] %></span>
+        </p>
+
+        <p>bidding(buying) price:
+            <span id="biddingPrice"> <%= data.XETHZUSD.b[0] %> </span>
+        </p>
+
+        <p>Today's opening price:
+            <%= data.XETHZUSD.o %>
+        </p>
+
+        <p>Today's average:
+            <%= data.XETHZUSD.p[0] %>
+        </p>
+
+        <p>last 24hours average:
+            <%= data.XETHZUSD.p[1] %>
+        </p>
+
+
+        <p>Today's low:
+            <%= data.XETHZUSD.l[0] %>
+        </p>
+
+        <p>Last 24hours low:
+            <%= data.XETHZUSD.l[1] %>
+        </p>
+
+        <p>Today's high:
+            <%= data.XETHZUSD.h[0] %>
+        </p>
+
+        <p>Last 24hours high:
+            <%= data.XETHZUSD.h[1] %>
+        </p>
     </main>
     <footer></footer>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js">
+    </script>
+    <script type="text/javascript">
+        $('body').css('background', "#fad");
+        // makes a get request on click
+        $('#getTicker').on('click', function() {
+            $.get('/', function(res) { // data returned is html from page
+                // grab updated ticker prices
+                var asking = $(res).find('#askingPrice').html();
+                var bidding = $(res).find('#biddingPrice').html();
+                // update prices on page
+                $('#askingPrice').html(asking);
+                $('#askingPrice').html(bidding);
+
+                console.log('get!');
+            })
+        })
+    </script>
 </body>
 
 </html>
